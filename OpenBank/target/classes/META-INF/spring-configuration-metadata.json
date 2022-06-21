@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "entpay",
+      "type": "com.example.openbank.init.ProductInit",
+      "sourceType": "com.example.openbank.init.ProductInit"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
