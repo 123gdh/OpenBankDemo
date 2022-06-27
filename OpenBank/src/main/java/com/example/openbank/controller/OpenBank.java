@@ -1,6 +1,5 @@
 package com.example.openbank.controller;
 
-import com.example.openbank.dao.OpenBankBatchTransferDao;
 import com.example.openbank.enums.Msg;
 import com.example.openbank.enums.ResponseStatus;
 import com.example.openbank.pojo.ObviousErrorList;
@@ -32,10 +31,11 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -54,6 +54,7 @@ public class OpenBank {
 
     @Autowired
     private OpenBankBatchTransferServiceImp openBankBatchTransferServiceImp;
+
 
     /**
      * 签约申请
@@ -101,7 +102,7 @@ public class OpenBank {
             openBankServiceImp.retryUpdete(openBankSign,openBank);
         }
         RedirectParam redirectParam = RedirectParam.builder()
-                .id(openBankSign.getApplicationId()) // application_id
+                .id(openBankSign.getApplicationId())
                 .type(RedirectTypeEnum.BANK_ACCOUNT_SIGN)
                 .build();
         Result result;
@@ -140,10 +141,10 @@ public class OpenBank {
      */
     @ResponseBody
     @GetMapping("/open-bank/sign/{application_id}")
-    public Result productLaunchDetails(@PathVariable(value = "application_id") String application_id,@RequestBody String ent_id) throws EntpayException, IOException { ;
+    public Result productLaunchDetails(@PathVariable(value = "application_id") String application_id,@RequestBody String ent_id) throws EntpayException{ ;
         try {
             RequestOptions requestOptions = OptionUtils.getOp(ent_id);
-            OpenBankSign  balance = null;
+            OpenBankSign  balance;
             if (StringUtils.hasText(application_id)){
                 //测试一律使用平台申请单号查询
                 balance = OpenBankSign.retrieve(application_id,requestOptions);
@@ -167,10 +168,10 @@ public class OpenBank {
      */
     @ResponseBody
     @GetMapping("/open-bank/sign/out-application-id/{out_application_id}")
-    public Result productLaunchDetailsOutId(@PathVariable(value = "out_application_id") String out_application_id,@RequestBody String ent_id) throws EntpayException, IOException { ;
+    public Result productLaunchDetailsOutId(@PathVariable(value = "out_application_id") String out_application_id,@RequestBody String ent_id) throws EntpayException{ ;
         try {
             RequestOptions requestOptions = OptionUtils.getOp(ent_id);
-            OpenBankSign  balance = null;
+            OpenBankSign  balance;
             if (StringUtils.hasText(out_application_id)){
                 //测试一律使用平台申请单号查询
                 balance = OpenBankSign.retrieveByOutApplicationId(out_application_id,requestOptions);
@@ -213,7 +214,7 @@ public class OpenBank {
      */
     @ResponseBody
     @PostMapping("/transfers")
-    public Result transferAccounts(@RequestBody OpenBankTransferParam openBankTransferParam) throws  ApiException,EntpayException {
+    public Result transferAccounts(@RequestBody OpenBankTransferParam openBankTransferParam) throws  EntpayException {
         try {
             String out_transfer_id = openBankTransferServiceImp.createAndInsertOpenBankTransfer(openBankTransferParam);
             openBankTransferParam.setOutTransferId(out_transfer_id);
@@ -244,9 +245,9 @@ public class OpenBank {
      * @throws EntpayException
      */
     @GetMapping("/transfers/{transfer_id}")
-    public Result queryTransfer(@PathVariable String transfer_id,@RequestBody String ent_id) throws JsonProcessingException, EntpayException {
+    public Result queryTransfer(@PathVariable String transfer_id,@RequestBody String ent_id) throws EntpayException {
         try {
-            OpenBankTransfer response = new OpenBankTransfer();
+            OpenBankTransfer response;
             RequestOptions requestOptions = OptionUtils.getOp(ent_id);
             if (!StringUtils.hasText(transfer_id)){
                 throw new EntpayException("查询单笔转账：银企支付转账单号为空异常");
@@ -286,7 +287,7 @@ public class OpenBank {
      * @param openBankBatchTransferParam
      */
     @PostMapping("/batch-transfers")
-    public Result batchTransfer(@RequestBody OpenBankBatchTransferParam  openBankBatchTransferParam) throws EntpayException, UnknownHostException {
+    public Result batchTransfer(@RequestBody OpenBankBatchTransferParam  openBankBatchTransferParam) throws EntpayException{
         if (openBankBatchTransferParam.getTotalNum()>500){
             throw new EntpayException("批量转账，一次转账数量不能超过500");
         }
@@ -372,7 +373,7 @@ public class OpenBank {
      * @throws JsonProcessingException
      */
     @GetMapping("/accounts/open-bank/{ent_acct_id}/statements")
-    public Result  queryStatement(@PathVariable(value = "ent_acct_id") String ent_acct_id,@RequestBody String entId) throws EntpayException, JsonProcessingException {
+    public Result  queryStatement(@PathVariable(value = "ent_acct_id") String ent_acct_id,@RequestBody String entId) throws EntpayException{
         RetrieveStatementGetParam retrieveStatementGetParam = new RetrieveStatementGetParam();
         retrieveStatementGetParam.setPageNo(1);
         retrieveStatementGetParam.setPageSize(10);
@@ -384,7 +385,7 @@ public class OpenBank {
         retrieveStatementGetParam.setBeginDate(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
         retrieveStatementGetParam.setEndDate(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
         RequestOptions requestOptions = OptionUtils.getOp(entId);
-        OpenBankAccountStatement statement = null;
+        OpenBankAccountStatement statement;
         try {
             statement = OpenBankAccount
                     .retrieveStatement(ent_acct_id,retrieveStatementGetParam, requestOptions);
@@ -410,8 +411,8 @@ public class OpenBank {
         RequestOptions options = OptionUtils.getOp(ent_id);
         BufferedOutputStream bufferedOutputStream = null;
         BufferedInputStream bufferedInputStream = null;
-        OpenBankReceiptDownload retrieveReceipt = null;
-        FileDownloadResponse fileDownloadResponse = null;
+        OpenBankReceiptDownload retrieveReceipt;
+        FileDownloadResponse fileDownloadResponse;
         try {
             OpenBankReceiptDownloadParam openBankReceiptDownloadParam = OpenBankReceiptDownloadParam.builder()
                     .receiptToken(receiptToken)
@@ -464,8 +465,8 @@ public class OpenBank {
     @PostMapping("/accounts/open-bank/{ent_acct_id}/receipts/batch")
     public void receiptDownloadByDate (@PathVariable(value = "ent_acct_id") String ent_acct_id,@RequestBody ReceiptsDateVo receiptsDateVo, HttpServletResponse response) throws EntpayException, IOException {
         //根据日期获取多笔回单的下载地址
-        String ent_id = receiptsDateVo.getEnt_id(); // 企业账号id
-        Date date = receiptsDateVo.getQuery_date();// 查询日期
+        String ent_id = receiptsDateVo.getEnt_id();
+        Date date = receiptsDateVo.getQuery_date();
         String queryDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
         RequestOptions options = OptionUtils.getOp(ent_id);
         //获取回单inputstream流
@@ -474,8 +475,8 @@ public class OpenBank {
                 .build();
         ZipInputStream zis = null;
         ZipOutputStream zio = null;
-        OpenBankReceiptDownload retrieveReceipt = null;
-        FileDownloadResponse fileDownloadResponse = null;
+        OpenBankReceiptDownload retrieveReceipt;
+        FileDownloadResponse fileDownloadResponse;
         try {
             retrieveReceipt = OpenBankReceiptDownload.retrieveBatchReceipts(ent_acct_id,
                     openBankBatchReceiptDownloadParam, options);
@@ -529,19 +530,19 @@ public class OpenBank {
     @PostMapping("/accounts/open-bank/{ent_acct_id}/vouchers")
     public void receiptDownloadByOrderId (@PathVariable(value = "ent_acct_id") String ent_acct_id,@RequestBody ReceiptsOrderIdVo receiptsOrderIdVo,HttpServletResponse response) throws EntpayException, IOException {
         //根据商企付单号获取回单下载地址
-        String orderId = receiptsOrderIdVo.getOrder_id(); // 商企付单号
-        String trade_type = receiptsOrderIdVo.getTrade_type(); // 商企付单号
+        String orderId = receiptsOrderIdVo.getOrder_id();
+        String trade_type = receiptsOrderIdVo.getTrade_type();
         String ent_id = receiptsOrderIdVo.getEnt_id();
-        VoucherTradeTypeEnum voucherTradeTypeEnum = VoucherTradeTypeEnum.valueOf(trade_type);// 商企付单号
+        VoucherTradeTypeEnum voucherTradeTypeEnum = VoucherTradeTypeEnum.valueOf(trade_type);
         RequestOptions options = OptionUtils.getOp(ent_id);
         ZipInputStream zis = null;
         ZipOutputStream zio = null;
         OpenBankVoucherDownloadParam openBankVoucherDownloadParam = OpenBankVoucherDownloadParam.builder()
                 .orderId(orderId)
-                .tradeType(voucherTradeTypeEnum) // 银行记账流水号
+                .tradeType(voucherTradeTypeEnum)
                 .build();
-        OpenBankReceiptDownload retrieveReceipt = null;
-        FileDownloadResponse fileDownloadResponse = null;
+        OpenBankReceiptDownload retrieveReceipt;
+        FileDownloadResponse fileDownloadResponse;
         try {
             retrieveReceipt = OpenBankReceiptDownload.retrieveVoucher(ent_acct_id, openBankVoucherDownloadParam, options);
             fileDownloadResponse =retrieveReceipt.download(options);
@@ -603,8 +604,8 @@ public class OpenBank {
                 .build();
         BufferedOutputStream bufferedOutputStream = null;
         BufferedInputStream bufferedInputStream = null;
-        OpenBankFileDownload retrieveReceipt = null;
-        FileDownloadResponse re = null;
+        OpenBankFileDownload retrieveReceipt;
+        FileDownloadResponse re;
         try {
             retrieveReceipt = OpenBankFileDownload.retrieveBankStatementBill(ent_acct_id,
                     openBankStatementBillDownloadParam, options);

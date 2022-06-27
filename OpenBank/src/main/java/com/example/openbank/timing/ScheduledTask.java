@@ -1,24 +1,14 @@
 package com.example.openbank.timing;
 
 
-import com.example.openbank.controller.GoProduct;
-import com.example.openbank.dao.*;
 import com.example.openbank.service.*;
-import com.example.openbank.utils.OptionUtils;
-import com.example.openbank.utils.QueryDetailsUtils;
 import com.tenpay.business.entpay.sdk.api.OpenBankSupportBank;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
-import com.tenpay.business.entpay.sdk.model.OpenBankSupportBankList;
-import com.tenpay.business.entpay.sdk.net.RequestOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j

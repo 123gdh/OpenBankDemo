@@ -3,17 +3,17 @@ package com.example.openbank.service.serviceImp;
 import com.example.openbank.dao.OpenBankBatchTransferDao;
 import com.example.openbank.dao.OpenBankBatchTransferTimingDao;
 import com.example.openbank.mapper.OpenBankBatchTransferMapper;
-import com.example.openbank.mapper.OpenBankBatchTransferTimingMapper;
 import com.example.openbank.pojo.OpenBankBatchTransferParamAndTransferId;
 import com.example.openbank.service.OpenBankBatchTransferService;
 import com.example.openbank.service.OpenBankBatchTransferTimingService;
-import com.example.openbank.service.PayeeService;
-import com.example.openbank.service.PayerService;
 import com.example.openbank.utils.CreateOutId;
 import com.example.openbank.utils.OptionUtils;
 import com.tenpay.business.entpay.sdk.api.OpenBankBatchTransfer;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
-import com.tenpay.business.entpay.sdk.model.*;
+import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferDetail;
+import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferDetailParam;
+import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferParam;
+import com.tenpay.business.entpay.sdk.model.ServerNotifyUrl;
 import com.tenpay.business.entpay.sdk.net.RequestOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service

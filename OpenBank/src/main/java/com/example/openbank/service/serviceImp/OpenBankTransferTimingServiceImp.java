@@ -1,11 +1,8 @@
 package com.example.openbank.service.serviceImp;
 
-import com.example.openbank.dao.OpenBankTransferDao;
 import com.example.openbank.dao.OpenBankTransferTimingDao;
 import com.example.openbank.mapper.OpenBankTransferTimingMapper;
-import com.example.openbank.service.OpenBankTransferService;
 import com.example.openbank.service.OpenBankTransferTimingService;
-import com.tenpay.business.entpay.sdk.api.OpenBankTransfer;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
 import com.tenpay.business.entpay.sdk.model.OpenBankTransferParam;
 import lombok.extern.slf4j.Slf4j;

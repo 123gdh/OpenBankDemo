@@ -1,11 +1,8 @@
 package com.example.openbank.service.serviceImp;
 
-import com.example.openbank.controller.GoProduct;
 import com.example.openbank.controller.OpenBank;
 import com.example.openbank.dao.OpenBankDao;
 import com.example.openbank.dao.OpenBankScheduledDao;
-import com.example.openbank.dao.ProductOpenDao;
-import com.example.openbank.enums.Errordescription;
 import com.example.openbank.enums.Msg;
 import com.example.openbank.enums.ResponseStatus;
 import com.example.openbank.mapper.OpenBankMapper;
@@ -16,8 +13,6 @@ import com.example.openbank.utils.OptionUtils;
 import com.example.openbank.utils.ResultUtils;
 import com.example.openbank.vo.ApplicationStatusVerificationVo;
 import com.tenpay.business.entpay.sdk.api.OpenBankSign;
-import com.tenpay.business.entpay.sdk.api.ProductApplication;
-import com.tenpay.business.entpay.sdk.api.Redirect;
 import com.tenpay.business.entpay.sdk.exception.ApiException;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
 import com.tenpay.business.entpay.sdk.model.*;
@@ -70,8 +65,7 @@ public class OpenBankServiceImp implements OpenBankService {
     }
 
     @Override
-    @Transactional(rollbackFor = EntpayException.class)
-    public ApplicationStatusVerificationVo stateVerification(OpenBankSignParam openBank)throws EntpayException{
+    public synchronized ApplicationStatusVerificationVo stateVerification(OpenBankSignParam openBank)throws EntpayException{
         try {
             OpenBankDao productOpenDao = queryOpenBank(openBank.getBankAccount().getBankAccountName(),openBank.getBankAccount().getBankAccountNumber(),openBank.getBankAccount().getBankAbbreviation());
             Result result = null;
@@ -170,7 +164,7 @@ public class OpenBankServiceImp implements OpenBankService {
                 throw new EntpayException("申请签约：将签约申请数据存储到定时查询表异常",e);
             }
         }
-        String hostAddress = null;
+        String hostAddress;
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {

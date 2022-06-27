@@ -1,6 +1,5 @@
 package com.example.openbank.dao;
 
-import com.tenpay.business.entpay.sdk.model.OpenBankTransferPayeeParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

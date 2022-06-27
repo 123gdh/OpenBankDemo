@@ -6,7 +6,6 @@ import com.example.openbank.pojo.OpenBankBatchTransferParamAndTransferId;
 import com.example.openbank.service.TransfersService;
 import com.example.openbank.utils.CreateOutId;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
-import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferDetail;
 import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferDetailParam;
 import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferParam;
 import com.tenpay.business.entpay.sdk.model.OpenBankTransferPayeeParam;

@@ -1,9 +1,11 @@
 package com.example.openbank.result;
 
 
-import com.example.openbank.enums.Msg;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor

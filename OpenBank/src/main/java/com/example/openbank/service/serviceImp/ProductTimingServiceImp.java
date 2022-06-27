@@ -1,13 +1,10 @@
 package com.example.openbank.service.serviceImp;
 
-import com.example.openbank.dao.OpenBankScheduledDao;
 import com.example.openbank.dao.ProductTimingDao;
 import com.example.openbank.mapper.ProductTimingMapper;
 import com.example.openbank.service.ProductTimingService;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
-import com.tenpay.business.entpay.sdk.model.OpenBankSignParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

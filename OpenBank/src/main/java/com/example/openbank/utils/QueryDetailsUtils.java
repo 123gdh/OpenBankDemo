@@ -1,7 +1,10 @@
 package com.example.openbank.utils;
 
 import com.example.openbank.controller.GoProduct;
-import com.example.openbank.dao.*;
+import com.example.openbank.dao.OpenBankBatchTransferDao;
+import com.example.openbank.dao.OpenBankDao;
+import com.example.openbank.dao.OpenBankTransferDao;
+import com.example.openbank.dao.ProductOpenDao;
 import com.example.openbank.service.*;
 import com.example.openbank.service.serviceImp.*;
 import com.tenpay.business.entpay.sdk.api.*;
@@ -9,11 +12,8 @@ import com.tenpay.business.entpay.sdk.exception.EntpayException;
 import com.tenpay.business.entpay.sdk.model.AccountDetail;
 import com.tenpay.business.entpay.sdk.model.Certificate;
 import com.tenpay.business.entpay.sdk.model.OpenBankBatchTransferDetail;
-import com.tenpay.business.entpay.sdk.model.OpenBankTransferBankApprovalGuide;
 import com.tenpay.business.entpay.sdk.net.RequestOptions;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,14 +2,11 @@ package com.example.openbank.service.serviceImp;
 
 import com.example.openbank.dao.OpenBankTransferDao;
 import com.example.openbank.dao.OpenBankTransferTimingDao;
-import com.example.openbank.dao.ProductOpenDao;
 import com.example.openbank.mapper.OpenBankTransferMapper;
 import com.example.openbank.service.OpenBankTransferService;
 import com.example.openbank.service.OpenBankTransferTimingService;
 import com.example.openbank.utils.OptionUtils;
 import com.tenpay.business.entpay.sdk.api.OpenBankTransfer;
-import com.tenpay.business.entpay.sdk.api.ProductApplication;
-import com.tenpay.business.entpay.sdk.exception.ApiException;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
 import com.tenpay.business.entpay.sdk.model.*;
 import com.tenpay.business.entpay.sdk.net.RequestOptions;
@@ -20,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j

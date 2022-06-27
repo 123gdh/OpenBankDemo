@@ -2,9 +2,7 @@ package com.example.openbank.result;
 
 import com.example.openbank.enums.Errordescription;
 import com.example.openbank.enums.Msg;
-import com.example.openbank.enums.ResponseStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -3,7 +3,6 @@ package com.example.openbank.utils;
 
 import com.example.openbank.enums.Errordescription;
 import com.example.openbank.enums.Msg;
-import com.example.openbank.enums.ResponseStatus;
 import com.example.openbank.result.Result;
 
 public class ResultUtils {

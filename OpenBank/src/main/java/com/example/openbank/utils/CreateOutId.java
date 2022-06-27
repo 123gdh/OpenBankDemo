@@ -1,7 +1,5 @@
 package com.example.openbank.utils;
 
-import org.springframework.util.StringUtils;
-
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CreateOutId {

@@ -90,7 +90,7 @@ public class GoProductServiceImp implements GoProductService {
     @Override
     public ApplicationStatusVerificationVo stateVerification(ProductApplicationParam param)throws EntpayException{
         try {
-            ProductOpenDao productOpenDao = queryProduct(param.getBusinessLicense().getUnifiedSocialCreditCode(), param.getProducts().get(0).getProductName().getDesc());
+            ProductOpenDao   productOpenDao = queryProduct(param.getBusinessLicense().getUnifiedSocialCreditCode(), param.getProducts().get(0).getProductName().getDesc());
             Result result = null;
             String outRequestNo = null;
             if (productOpenDao != null) {
@@ -177,7 +177,7 @@ public class GoProductServiceImp implements GoProductService {
         //产品名称
         //法人身份证信息
         LegalPersonIdCard legalPersonIdCard = param.getLegalPersonIdCard();
-        String hostAddress = null;
+        String hostAddress;
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {

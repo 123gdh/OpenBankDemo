@@ -1,9 +1,0 @@
-com\example\openbank\IfTest.class
-com\example\openbank\RegisterTest.class
-com\example\openbank\FileTest.class
-com\example\openbank\mapper\ProductMapperTest.class
-com\example\openbank\ProductTest.class
-com\example\openbank\service\ProductServiceTest.class
-com\example\openbank\serviceImp\ProductServiceImpTest.class
-com\example\openbank\TransactionlTest.class
-com\example\openbank\OpenBankApplicationTests.class

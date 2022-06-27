@@ -6,7 +6,6 @@ import com.example.openbank.service.PayerService;
 import com.tenpay.business.entpay.sdk.exception.EntpayException;
 import com.tenpay.business.entpay.sdk.model.OpenBankTransferPayerParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
